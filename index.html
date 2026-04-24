@@ -576,43 +576,6 @@
       font-weight: 700;
     }
 
-    .orbit-card {
-      margin-top: 22px;
-      padding: 16px 16px 20px;
-    }
-
-    .orbit-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 14px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .orbit-header strong {
-      color: var(--cyan);
-      font-size: 20px;
-      text-shadow: 0 0 12px rgba(131, 242, 255, 0.6);
-    }
-
-    .orbit-stage {
-      margin-top: 4px;
-      padding-top: 16px;
-      border-top: 2px solid var(--cyan);
-      text-align: center;
-    }
-
-    .orbit-image {
-      display: block;
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      margin: 0 auto;
-      opacity: 0.94;
-      filter: saturate(0.9) brightness(0.92) contrast(1.08);
-    }
 
 
 
@@ -757,34 +720,6 @@
       text-align: right;
     }
 
-    .orbit-card::after {
-      content: "";
-      position: absolute;
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(131, 242, 255, 0.45), transparent);
-    }
-
-    .orbit-stage {
-      position: relative;
-      background:
-        radial-gradient(circle at 11% 28%, rgba(216, 228, 246, 0.5) 0 1px, transparent 2px),
-        radial-gradient(circle at 74% 18%, rgba(216, 228, 246, 0.4) 0 1px, transparent 2px),
-        radial-gradient(circle at 42% 76%, rgba(216, 228, 246, 0.35) 0 1px, transparent 2px);
-    }
-
-    .orbit-stage::before {
-      content: "";
-      position: absolute;
-      left: -16px;
-      right: -16px;
-      top: 16px;
-      height: 2px;
-      background: var(--cyan);
-      box-shadow: 0 0 12px rgba(131, 242, 255, 0.78);
-    }
 
     .telemetry-footer {
       display: grid;
@@ -870,7 +805,6 @@
     .timeline-panel { animation-delay: 0.48s; }
     .graph-panel { animation-delay: 0.62s; }
     .week-panel { animation-delay: 0.76s; }
-    .orbit-card { animation-delay: 0.9s; }
 
     @keyframes boot-panel {
       from {
@@ -1079,8 +1013,7 @@
       }
 
       .timeline-panel,
-      .graph-panel,
-      .orbit-card {
+      .graph-panel {
         margin-top: 12px;
       }
 
@@ -1310,16 +1243,7 @@
       </div>
     </section>
 
-    <section class="panel orbit-card" aria-label="Celestial orbit illustration">
-      <div class="orbit-header">
-        <span>NASA JSC OEM - OFFICIAL TELEMETRY</span>
-        <strong>ORBIT DISPLAY</strong>
-      </div>
-      <div class="orbit-stage">
-        <img class="orbit-image" src="orbit.png" alt="Celestial orbit illustration">
-      </div>
-      <div class="telemetry-footer"><span>TRACKING SOURCE / LOCAL EPHEMERIS PACKAGE</span><span><span class="footer-code">AOS 20:27</span><span id="reload-status" class="reload-status">AUTO RELOAD ARMED</span></span></div>
-    </section>
+    <div class="telemetry-footer"><span>TRACKING SOURCE / LOCAL EPHEMERIS PACKAGE</span><span><span class="footer-code">AOS 20:27</span><span id="reload-status" class="reload-status">AUTO RELOAD ARMED</span></span></div>
   </main>
 
   <script src="telemetry.js"></script>
