@@ -1108,8 +1108,8 @@
         </div>
 
         <div class="status-cell">
-          <div class="status-label">CO2</div>
-          <div id="co2" class="status-value warning">702</div>
+          <div class="status-label">CPU TEMP</div>
+          <div id="cpu-temp" class="status-value warning">48.2°C</div>
         </div>
 
         <div class="status-cell">
@@ -1267,10 +1267,10 @@
         { level: "level-caution", test: (value) => value >= 60 },
         { level: "level-normal", test: () => true }
       ],
-      co2: [
-        { level: "level-critical", test: (value) => value >= 1500 },
-        { level: "level-warning", test: (value) => value >= 1000 },
-        { level: "level-caution", test: (value) => value >= 800 },
+      cpuTemp: [
+        { level: "level-critical", test: (value) => value >= 80 },
+        { level: "level-warning", test: (value) => value >= 70 },
+        { level: "level-caution", test: (value) => value >= 60 },
         { level: "level-normal", test: () => true }
       ],
       temperature: [
@@ -1348,7 +1348,7 @@
       const telemetry = window.HOME_TELEMETRY || {};
       setText("device-uptime", telemetry.deviceUptime);
       setSensorValue("humidity", telemetry.humidity, "homeTelemetry.humidity", "humidity");
-      setSensorValue("co2", telemetry.co2, "homeTelemetry.co2", "co2");
+      setSensorValue("cpu-temp", telemetry.cpuTemp, "homeTelemetry.cpuTemp", "cpuTemp");
       setSensorValue("temperature", telemetry.temperature, "homeTelemetry.temperature", "temperature");
     }
 
