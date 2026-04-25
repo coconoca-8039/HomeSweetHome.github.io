@@ -10,6 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent
 TELEMETRY_PATH = BASE_DIR / "telemetry.js"
 TEMP_PATTERN = re.compile(r"temp=([0-9]+(?:\.[0-9]+)?)")
 UPDATE_INTERVAL_SECONDS = 10 * 60
+HEARTBEAT_INTERVAL_SECONDS = 15
 
 
 def measure_cpu_temp() -> str:
@@ -70,18 +71,34 @@ def update_telemetry_js() -> dict[str, str]:
 
 
 def main() -> None:
-    print(f"Telemetry loop started. Updating every {UPDATE_INTERVAL_SECONDS // 60} minutes.")
+    print(
+        "Telemetry loop started. "
+        f"Updating telemetry.js every {UPDATE_INTERVAL_SECONDS // 60} minutes. "
+        f"Heartbeat every {HEARTBEAT_INTERVAL_SECONDS} seconds."
+    )
+    next_update_at = time.monotonic()
     while True:
         try:
-            telemetry = update_telemetry_js()
+            cpu_temp = measure_cpu_temp()
             print(
                 f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] "
-                f"Updated telemetry.js with CPU temp {telemetry['cpuTemp']}"
+                f"Program running. CPU temp {cpu_temp}"
             )
+
+            if time.monotonic() >= next_update_at:
+                telemetry = read_existing_telemetry()
+                telemetry["cpuTemp"] = cpu_temp
+                telemetry["updatedAt"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                TELEMETRY_PATH.write_text(render_telemetry_js(telemetry))
+                print(
+                    f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] "
+                    f"Updated telemetry.js with CPU temp {cpu_temp}"
+                )
+                next_update_at = time.monotonic() + UPDATE_INTERVAL_SECONDS
         except Exception as error:
             print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Update failed: {error}")
 
-        time.sleep(UPDATE_INTERVAL_SECONDS)
+        time.sleep(HEARTBEAT_INTERVAL_SECONDS)
 
 
 if __name__ == "__main__":
